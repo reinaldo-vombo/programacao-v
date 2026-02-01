@@ -10,9 +10,9 @@ interface ApiService {
     suspend fun login(
         @Body request: LoginRequest
     ): LoginResponse
-
-    @POST("register")
-    suspend fun register(
-        @Body request: RegisterRequest
-    ): RegisterResponse
+    @Multipart
+@POST("validar/")
+suspend fun uploadPdf(
+    @Part file: MultipartBody.Part
+): ValidacaoResponse
 }

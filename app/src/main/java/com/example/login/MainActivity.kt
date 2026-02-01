@@ -33,14 +33,19 @@ class MainActivity : ComponentActivity() {
                 "splash" -> SplashScreen { screen = "login" }
                 "login" -> LoginScreen(
                     onLoginSuccess = { screen = "home" },
-                    onGoToRegister = { screen = "register" }
                 )
-                "register" -> RegisterScreen {
-                    screen = "login"
-                }
+                
                 "home" -> HomeScreen {
-                    screen = "login"
+                    onLogout = { screen = "login" },
+                    onReciboValidado = { resposta ->
+                    reciboValidado = resposta
+                    screen = "resultado"
+                    }
                 }
+                "resultado" -> ReciboValidadoScreen(
+                recibo = reciboValidado!!,
+                onBack = { screen = "home" }
+                )
             }
         }
     }

@@ -1,17 +1,22 @@
 package com.example.login.data.api
 
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import com.example.login.data.model.LoginRequest
+import com.example.login.data.model.LoginResponse
+import okhttp3.MultipartBody
+import retrofit2.http.Body
+import retrofit2.http.Multipart
+import retrofit2.http.POST
+import retrofit2.http.Part
 
-object RetrofitInstance {
+interface ApiService {
+    @POST("https://reqres.in/api/login")
+    suspend fun login(
+        @Body request: LoginRequest
+    ): LoginResponse
 
-    private const val BASE_URL = "https://reqres.in/api/"
-
-    val api: ApiService by lazy {
-        Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-            .create(ApiService::class.java)
-    }
+    @Multipart
+    @POST("validar/")
+    suspend fun uploadPdf(
+        @Part file: MultipartBody.Part
+    )
 }
